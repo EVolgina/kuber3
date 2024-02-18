@@ -20,7 +20,7 @@ vagrant@vagrant:~/kube/zad3$ kubectl apply -f apps.yaml
 deployment.apps/my-deployment configured
 ```
 - Создаем файл для сервиса - vagrant@vagrant:~/kube/zad3$ sudo nano service.yml
-[service.yml]()
+[service.yml](https://github.com/EVolgina/kuber3/blob/main/service)
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f service.yaml  - запускаем сервис
 service/my-service created
