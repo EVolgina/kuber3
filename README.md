@@ -26,7 +26,7 @@ vagrant@vagrant:~/kube/zad3$ kubectl apply -f service.yaml  - запускаем
 service/my-service created
 ```
 - созданием Pod с приложением multitool
-[mult.yml]
+[mult.yml]()
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f mult.yaml
 pod/multitool-pod configured
@@ -90,7 +90,7 @@ Commercial support is available at
 </body>
 </html>
 ```
-![1]()
+![1](https://github.com/EVolgina/kuber3/blob/main/3.PNG)
 ## Задание 2. Создать Deployment и обеспечить старт основного контейнера при выполнении условий
 - Создать Deployment приложения nginx и обеспечить старт контейнера только после того, как будет запущен сервис этого приложения.
 - Убедиться, что nginx не стартует. В качестве Init-контейнера взять busybox.
