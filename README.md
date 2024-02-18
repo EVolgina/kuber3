@@ -97,7 +97,7 @@ Commercial support is available at
 - Создать и запустить Service. Убедиться, что Init запустился.
 - Продемонстрировать состояние пода до и после запуска сервиса.
 ##Ответ:
-- Нам нужно создать YAML-файл, который определит наш Deployment с Init-контейнером. Cоздаем файл nginx-deployment.yaml [deployment]()
+- Нам нужно создать YAML-файл, который определит наш Deployment с Init-контейнером. Cоздаем файл nginx-deployment.yaml [deployment](https://github.com/EVolgina/kuber3/blob/main/nginx-deployment)
 - Создаем файл nginx-service.yaml [service]()
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f nginx-deployment.yaml
