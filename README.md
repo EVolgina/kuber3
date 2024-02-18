@@ -13,7 +13,7 @@ kubectl apply -f apps.yaml
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f apps.yaml
 deployment.apps/my-deployment created
 ```
-[apps.yml]()
+[apps.yml](https://github.com/EVolgina/kuber3/blob/main/apps)
 - Чтобы увеличить количество реплик приложения до 2, вносим изменения в YAML-файл apps.yml, установив значение replicas в 2, и снова применить его к кластеру с помощью kubectl apply
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f apps.yaml
