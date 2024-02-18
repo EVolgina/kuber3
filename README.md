@@ -26,7 +26,7 @@ vagrant@vagrant:~/kube/zad3$ kubectl apply -f service.yaml  - запускаем
 service/my-service created
 ```
 - созданием Pod с приложением multitool
-[mult.yml]()
+[mult.yml](https://github.com/EVolgina/kuber3/blob/main/mult)
 ```
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f mult.yaml
 pod/multitool-pod configured
