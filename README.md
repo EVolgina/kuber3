@@ -237,10 +237,6 @@ nginx-deployment-7cc746858d-g2qdc   0/1     PodInitializing   0             21s
 ```
 
 
-NAME      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-service   ClusterIP   10.152.183.161   <none>        8080/TCP   106m
-```
-
 
 
 
