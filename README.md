@@ -217,9 +217,24 @@ Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists fo
                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:                      <none>
 ```
-- Переделываем файлы, перезапускаем все
+- Переделываем файлы, перезапускаем все [depoloy]()
 ```
-kubectl logs nginx-deployment-789d7b97dd-d9s6w -c init-busybox
+devops@WORKBOOK:/mnt/kube$ kubectl get pods
+NAME                                READY   STATUS     RESTARTS      AGE
+hello-world                         1/1     Running    5 (39m ago)   6d
+netology-web                        1/1     Running    5 (39m ago)   5d23h
+nginx-deployment-789d7b97dd-d9s6w   0/1     Init:0/1   1             22h
+kubectl apply -f depoy.yml
+devops@WORKBOOK:/mnt/kube$ kubectl apply -f depoy.yml
+deployment.apps/nginx-deployment configured
+service/my-service configured
+devops@WORKBOOK:/mnt/kube$ kubectl get pods
+NAME                                READY   STATUS            RESTARTS      AGE
+hello-world                         1/1     Running           5 (41m ago)   6d
+netology-web                        1/1     Running           5 (41m ago)   5d23h
+nginx-deployment-789d7b97dd-d9s6w   0/1     Init:0/1          1             22h
+nginx-deployment-7cc746858d-g2qdc   0/1     PodInitializing   0             21s
+
 
 ```
 
