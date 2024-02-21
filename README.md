@@ -96,7 +96,7 @@ Commercial support is available at
 - Убедиться, что nginx не стартует. В качестве Init-контейнера взять busybox.
 - Создать и запустить Service. Убедиться, что Init запустился.
 - Продемонстрировать состояние пода до и после запуска сервиса.
-##Ответ:
+## Ответ:
 - Нам нужно создать YAML-файл, который определит наш Deployment с Init-контейнером. Cоздаем файл nginx-deployment.yaml [deployment](https://github.com/EVolgina/kuber3/blob/main/nginx-deployment)
 - Создаем файл nginx-service.yaml [service](https://github.com/EVolgina/kuber3/blob/main/nginx-service)
 ```
@@ -217,46 +217,13 @@ Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists fo
                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
 Events:                      <none>
 ```
-- И тут я застряла. Помогите разобраться, потому что контейнеры так и замерли в стадии инициализации
+- Переделываем файлы, перезапускаем все
 ```
-vagrant@vagrant:~/kube/zad3$ kubectl get pods
-NAME                                READY   STATUS     RESTARTS   AGE
-multitool                           1/1     Running    0          4h
-multitool-7f8c7df657-dqjp5          1/1     Running    0          3h59m
-multitool-pod                       1/1     Running    0          179m
-my-deployment-9b5db5dc8-7kx2k       2/2     Running    0          148m
-my-deployment-9b5db5dc8-9jx9g       2/2     Running    0          148m
-nginx-deployment-789d7b97dd-7wkrs   0/1     Init:0/1   0          22m
-nginx-deployment-56cfbbb6c-fz6x2    0/1     Init:0/1   0          3m57s
-vagrant@vagrant:~/kube/zad3$ kubectl get pods
-NAME                                READY   STATUS     RESTARTS   AGE
-multitool                           1/1     Running    0          4h1m
-multitool-7f8c7df657-dqjp5          1/1     Running    0          4h1m
-multitool-pod                       1/1     Running    0          3h1m
-my-deployment-9b5db5dc8-7kx2k       2/2     Running    0          149m
-my-deployment-9b5db5dc8-9jx9g       2/2     Running    0          149m
-nginx-deployment-789d7b97dd-7wkrs   0/1     Init:0/1   0          23m
-nginx-deployment-56cfbbb6c-fz6x2    0/1     Init:0/1   0          5m22s
-vagrant@vagrant:~/kube/zad3$ kubectl get pods
-NAME                                READY   STATUS     RESTARTS   AGE
-multitool                           1/1     Running    0          4h17m
-multitool-7f8c7df657-dqjp5          1/1     Running    0          4h17m
-multitool-pod                       1/1     Running    0          3h17m
-my-deployment-9b5db5dc8-7kx2k       2/2     Running    0          165m
-my-deployment-9b5db5dc8-9jx9g       2/2     Running    0          165m
-nginx-deployment-789d7b97dd-7wkrs   0/1     Init:0/1   0          40m
-nginx-deployment-56cfbbb6c-fz6x2    0/1     Init:0/1   0          21m
-vagrant@vagrant:~/kube/zad3$ kubectl get -f myapp.yaml
-error: the path "myapp.yaml" does not exist
-vagrant@vagrant:~/kube/zad3$ kubectl get -f apps.yaml
-NAME            READY   UP-TO-DATE   AVAILABLE   AGE
-my-deployment   2/2     2            2           6h38m
-vagrant@vagrant:~/kube/zad3$ ls
-apps.yaml  mult.yaml  nginx-deployment.yaml  nginx-service.yaml  service.yaml
-vagrant@vagrant:~/kube/zad3$ kubectl get -f nginx-deployment.yaml
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-nginx-deployment   0/1     1            0           119m
-vagrant@vagrant:~/kube/zad3$ kubectl get -f  nginx-service.yaml
+kubectl logs nginx-deployment-789d7b97dd-d9s6w -c init-busybox
+
+```
+
+
 NAME      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
 service   ClusterIP   10.152.183.161   <none>        8080/TCP   106m
 ```
