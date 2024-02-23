@@ -104,71 +104,45 @@ vagrant@vagrant:~/kube/zad3$ kubectl apply -f nginx-deployment.yaml
 deployment.apps/nginx-deployment created
 vagrant@vagrant:~/kube/zad3$ kubectl apply -f nginx-service.yaml
 service/my-service1 created
-vagrant@vagrant:~/kube/zad3$ kubectl get deployments
+devops@WORKBOOK:/mnt/kube$ kubectl get deployments
 NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-multitool          1/1     1            1           140m
-my-deployment      2/2     2            2           4h39m
-nginx-deployment   0/1     1            0           40s
-Проверьте состояние подов:
+nginx-deployment   1/1     1            1           2d18h
+Проверим состояние подов:
 kubectl get pods
-vagrant@vagrant:~/kube/zad3$ kubectl get pods
-NAME                                READY   STATUS     RESTARTS   AGE
-multitool                           1/1     Running    0          3h23m
-multitool-7f8c7df657-dqjp5          1/1     Running    0          3h23m
-multitool-pod                       1/1     Running    0          143m
-my-deployment-9b5db5dc8-7kx2k       2/2     Running    0          112m
-my-deployment-9b5db5dc8-9jx9g       2/2     Running    0          111m
-nginx-deployment-568fd5d77b-ms56n   0/1     Init:0/1   0          63m
-nginx-deployment-789d7b97dd-vw2tq   0/1     Init:0/1   0          3m9s
-vagrant@vagrant:~/kube/zad3$ kubectl get svc
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP    14d
-my-service   ClusterIP   10.152.183.249   <none>        80/TCP     96m
-service      ClusterIP   10.152.183.161   <none>        8080/TCP   2m19s
-vagrant@vagrant:~/kube/zad3$ kubectl get deployments
-NAME               READY   UP-TO-DATE   AVAILABLE   AGE
-multitool          1/1     1            1           140m
-my-deployment      2/2     2            2           4h39m
-nginx-deployment   0/1     1            0           40s
-Проверьте состояние подов:
-kubectl get pods
-vagrant@vagrant:~/kube/zad3$ kubectl get pods
-NAME                                READY   STATUS     RESTARTS   AGE
-multitool                           1/1     Running    0          3h23m
-multitool-7f8c7df657-dqjp5          1/1     Running    0          3h23m
-multitool-pod                       1/1     Running    0          143m
-my-deployment-9b5db5dc8-7kx2k       2/2     Running    0          112m
-my-deployment-9b5db5dc8-9jx9g       2/2     Running    0          111m
-nginx-deployment-568fd5d77b-ms56n   0/1     Init:0/1   0          63m
-nginx-deployment-789d7b97dd-vw2tq   0/1     Init:0/1   0          3m9s
-vagrant@vagrant:~/kube/zad3$ kubectl get svc
-NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-kubernetes   ClusterIP   10.152.183.1     <none>        443/TCP    14d
-my-service   ClusterIP   10.152.183.249   <none>        80/TCP     96m
-service      ClusterIP   10.152.183.161   <none>        8080/TCP   2m19s
+devops@WORKBOOK:/mnt/kube$ kubectl get pods
+NAME                               READY   STATUS    RESTARTS      AGE
+hello-world                        1/1     Running   7 (42h ago)   7d19h
+netology-web                       1/1     Running   7 (42h ago)   7d18h
+nginx-deployment-bfc6fffb9-bjnvd   1/1     Running   0             18s
+devops@WORKBOOK:/mnt/kube$ kubectl get svc
+NAME           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+kubernetes     ClusterIP   10.152.183.1     <none>        443/TCP    10d
+netology-svc   ClusterIP   10.152.183.204   <none>        80/TCP     7d18h
+service        ClusterIP   10.152.183.65    <none>        8080/TCP   2d18h
+my-service     ClusterIP   10.152.183.52    <none>        8080/TCP   43h
 ```
 - Теперь убедимся, что контейнер с приложением nginx не стартует до тех пор, пока инициализационный контейнер не завершит свою работу.
 ```
-vagrant@vagrant:~/kube/zad3$ kubectl describe pod nginx-deployment-789d7b97dd-vw2tq
-Name:             nginx-deployment-789d7b97dd-vw2tq
+devops@WORKBOOK:/mnt/kube$ kubectl describe pod nginx-deployment-bfc6fffb9-bjnvd
+Name:             nginx-deployment-bfc6fffb9-bjnvd
 Namespace:        default
 Priority:         0
 Service Account:  default
-Node:             vagrant/10.0.2.15
-Start Time:       Sun, 18 Feb 2024 11:46:15 +0000
+Node:             workbook/172.23.49.32
+Start Time:       Fri, 23 Feb 2024 14:51:19 +0500
 Labels:           app=nginx
-                  pod-template-hash=789d7b97dd
-Annotations:      cni.projectcalico.org/containerID: 5ad32a0433773014da0b641cb27efedeaead12a91436688098c1a1ae2866a5e5
-                  cni.projectcalico.org/podIP: 10.1.52.157/32
-                  cni.projectcalico.org/podIPs: 10.1.52.157/32
-Status:           Pending
-IP:               10.1.52.157
+                  pod-template-hash=bfc6fffb9
+Annotations:      cni.projectcalico.org/containerID: 091d728b7d62b63d756d77d4afd3a4ed43b2277b9a6365565fab098cfaee2fd0
+                  cni.projectcalico.org/podIP: 10.1.211.220/32
+                  cni.projectcalico.org/podIPs: 10.1.211.220/32
+Status:           Running
+IP:               10.1.211.220
 IPs:
-  IP:           10.1.52.157
-Controlled By:  ReplicaSet/nginx-deployment-789d7b97dd
+  IP:           10.1.211.220
+Controlled By:  ReplicaSet/nginx-deployment-bfc6fffb9
 Init Containers:
   init-busybox:
-    Container ID:  containerd://1c1e06f9839c9952cdcba24d611244075bb1085f69e4154b8109b65dcaef1645
+    Container ID:  containerd://687f0f6d9c95f6e7718cf9d68fc2dfed146f4402418faf3bacc0d99c733e121e
     Image:         busybox
     Image ID:      docker.io/library/busybox@sha256:6d9ac9237a84afe1516540f40a0fafdc86859b2141954b4d643af7066d598b74
     Port:          <none>
@@ -176,36 +150,39 @@ Init Containers:
     Command:
       sh
       -c
-      until nslookup service; do echo waiting for my-service; sleep 2; done;
-    State:          Running
-      Started:      Sun, 18 Feb 2024 11:46:23 +0000
-    Ready:          False
+      until nslookup my-service.default.svc.cluster.local; do echo waiting for my-service; sleep 2; done;
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Fri, 23 Feb 2024 14:51:25 +0500
+      Finished:     Fri, 23 Feb 2024 14:51:25 +0500
+    Ready:          True
     Restart Count:  0
     Environment:    <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zx46s (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-gzskn (ro)
 Containers:
   nginx-container:
-    Container ID:
+    Container ID:   containerd://4783a3e8de19a4293d17501215cf609c913fda0bbb72d70ab6d5f000d49cbbd4
     Image:          nginx
-    Image ID:
+    Image ID:       docker.io/library/nginx@sha256:c26ae7472d624ba1fafd296e73cecc4f93f853088e6a9c13c0d52f6ca5865107
     Port:           8080/TCP
     Host Port:      0/TCP
-    State:          Waiting
-      Reason:       PodInitializing
-    Ready:          False
+    State:          Running
+      Started:      Fri, 23 Feb 2024 14:51:28 +0500
+    Ready:          True
     Restart Count:  0
     Environment:    <none>
     Mounts:
-      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zx46s (ro)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-gzskn (ro)
 Conditions:
   Type              Status
-  Initialized       False
-  Ready             False
-  ContainersReady   False
+  Initialized       True
+  Ready             True
+  ContainersReady   True
   PodScheduled      True
 Volumes:
-  kube-api-access-zx46s:
+  kube-api-access-gzskn:
     Type:                    Projected (a volume that contains injected data from multiple sources)
     TokenExpirationSeconds:  3607
     ConfigMapName:           kube-root-ca.crt
@@ -215,25 +192,34 @@ QoS Class:                   BestEffort
 Node-Selectors:              <none>
 Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
                              node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
-Events:                      <none>
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  4m20s  default-scheduler  Successfully assigned default/nginx-deployment-bfc6fffb9-bjnvd to workbook
+  Normal  Pulling    4m18s  kubelet            Pulling image "busybox"
+  Normal  Pulled     4m15s  kubelet            Successfully pulled image "busybox" in 3.317s (3.317s including waiting)
+  Normal  Created    4m15s  kubelet            Created container init-busybox
+  Normal  Started    4m15s  kubelet            Started container init-busybox
+  Normal  Pulling    4m14s  kubelet            Pulling image "nginx"
+  Normal  Pulled     4m12s  kubelet            Successfully pulled image "nginx" in 1.795s (1.795s including waiting)
+  Normal  Created    4m12s  kubelet            Created container nginx-container
+  Normal  Started    4m12s  kubelet            Started container nginx-container
 ```
 - Переделываем файлы, перезапускаем все [depoloy](https://github.com/EVolgina/kuber3/blob/main/deploy)
 ```
 devops@WORKBOOK:/mnt/kube$ kubectl get pods - До
-NAME                                READY   STATUS     RESTARTS      AGE
-hello-world                         1/1     Running    5 (39m ago)   6d
-netology-web                        1/1     Running    5 (39m ago)   5d23h
-nginx-deployment-789d7b97dd-d9s6w   0/1     Init:0/1   1             22h
-kubectl apply -f depoy.yml
+NAME                               READY   STATUS    RESTARTS      AGE
+hello-world                        1/1     Running   7 (42h ago)   7d19h
+netology-web                       1/1     Running   7 (42h ago)   7d18h
+nginx-deployment-bfc6fffb9-bjnvd   1/1     Running   0             5m55s
 devops@WORKBOOK:/mnt/kube$ kubectl apply -f depoy.yml
 deployment.apps/nginx-deployment configured
 service/my-service configured
 devops@WORKBOOK:/mnt/kube$ kubectl get pods -После
-NAME                                READY   STATUS            RESTARTS      AGE
-hello-world                         1/1     Running           5 (41m ago)   6d
-netology-web                        1/1     Running           5 (41m ago)   5d23h
-nginx-deployment-789d7b97dd-d9s6w   0/1     Init:0/1          1             22h
-nginx-deployment-7cc746858d-g2qdc   0/1     PodInitializing   0             21s
+NAME                                READY   STATUS    RESTARTS      AGE
+hello-world                         1/1     Running   7 (42h ago)   7d19h
+netology-web                        1/1     Running   7 (42h ago)   7d18h
+nginx-deployment-7cc746858d-xxzrp   1/1     Running   0             15s
 ```
 
 
